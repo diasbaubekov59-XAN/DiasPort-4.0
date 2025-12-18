@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Portfolio</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Michroma&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            text-decoration: none;
+            border: none;
+            outline: none;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            font-size: 62.5%;
+        }
+
+        body {
+            width: 100%;
+            min-height: 100vh;
+            overflow-x: hidden;
+            background-color: black;
+            color: white;
+        }
+
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 1rem 9%;
+            background-color: transparent;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 100;
+            transition: background-color 0.3s ease;
+        }
+
+        header.scrolled {
+            background-color: rgba(0,0,0,0.9);
+        }
+
+        .logo {
+            font-size: 3rem;
+            color: #ffffff;
+            font-weight: 800;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .logo:hover {
+            transform: scale(1.05);
+        }
+
+        nav a {
+            font-size: 1.8rem;
+            color: white;
+            margin-left: 4rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            border-bottom: 3px solid transparent;
+            position: relative;
+        }
+
+        nav a:hover, nav a.active {
+            color: #d11818;
+            border-bottom: 3px solid #d11818;
+        }
+
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+        }
+
+        .menu-toggle span {
+            width: 3rem;
+            height: 0.3rem;
+            background: white;
+            margin: 0.3rem 0;
+            transition: 0.3s;
+        }
+
+        section {
+            min-height: 100vh;
+            padding: 12rem 9% 5rem;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: 0.7s ease;
+        }
+
+        section.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .home {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8rem;
+            min-height: 100vh;
+            padding-top: 0;
+        }
+
+        .home-content h3 {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+
+        .home-content h3 span {
+            color: #d11818;
+        }
+
+        .typing-text {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin: 1rem 0;
+        }
+
+        .typing-text span {
+            position: relative;
+            color: #d11818;
+        }
+
+        .typing-text span::before {
+            content: "Entrepreneur";
+            animation: words 15s infinite;
+        }
+
+        .typing-text span::after {
+            content: "";
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-left: 3px solid #d11818;
+            right: -10px;
+            top: 0;
+            animation: cursor 0.6s infinite;
+        }
+
+        @keyframes cursor {
+            0% { border-color: transparent; }
+            50% { border-color: #d11818; }
+        }
+
+        /* добавлен Blogger в анимацию */
+        @keyframes words {
+            0%,16%   { content: "Entrepreneur"; }
+            17%,33%  { content: "Businessman"; }
+            34%,50%  { content: "Web Developer"; }
+            51%,67%  { content: "Software Developer"; }
+            68%,84%  { content: "Artist"; }
+            85%,100% { content: "Blogger"; }
+        }
+
+        .home-content p {
+            font-size: 1.7rem;
+            line-height: 1.9;
+            margin-bottom: 2rem;
+            max-width: 55rem;
+        }
+
+        .photo-container {
+            width: 38rem;
+            height: 38rem;
+            border-radius: 50%;
+            overflow: hidden;
+            box-shadow: 0 0 25px #d11818;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            flex-shrink: 0;
+        }
+
+        .photo-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .photo-container:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 35px #d11818;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .social-icons a {
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            width: 5rem;
+            height: 5rem;
+            background-color: transparent;
+            border: 0.25rem solid #d11818;
+            font-size: 2.5rem;
+            border-radius: 50%;
+            color: #d11818;
+            transition: all 0.3s ease;
+        }
+
+        .social-icons a:hover {
+            color: black;
+            background-color: #d11818;
+            box-shadow: 0 0 25px #d11818;
+            transform: scale(1.1) translateY(-3px);
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 1rem 2.8rem;
+            background-color: black;
+            border-radius: 4rem;
+            font-size: 1.6rem;
+            color: #d11818;
+            letter-spacing: 0.3rem;
+            font-weight: 600;
+            border: 2px solid #d11818;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            transform: scale(1.03);
+            background-color: #d11818;
+            color: black;
+            box-shadow: 0 0 25px #d11818;
+        }
+
+        .title span {
+            font-size: 4rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            color: white;
+            letter-spacing: 2px;
+            display: block;
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .content {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 2rem 0;
+        }
+
+        .About-details {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            gap: 4rem;
+        }
+
+        .About-details .left {
+            flex: 1;
+        }
+
+        .right .topic {
+            font-size: 3rem;          /* больше заголовок */
+            color: white;
+            margin-bottom: 2.5rem;
+            font-weight: 600;
+        }
+
+        /* увеличен размер и ширина текста About */
+        .About .right p {
+            font-size: 1.8rem;
+            line-height: 2;
+            margin-bottom: 1.7rem;
+            max-width: 80rem;
+        }
+
+        .button button {
+            padding: 1rem 2.4rem;
+            background-color: #d11818;
+            color: white;
+            border-radius: 3rem;
+            font-size: 1.7rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .button button:hover {
+            background-color: #ff4444;
+            transform: scale(1.05);
+        }
+
+        .skills-container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .skill-box {
+            margin-bottom: 3rem;
+            opacity: 0;
+            transform: translateX(-50px);
+            transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .skills-container.show .skill-box {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .skills-container.show .skill-box:nth-child(1) { transition-delay: 0.1s; }
+        .skills-container.show .skill-box:nth-child(2) { transition-delay: 0.2s; }
+        .skills-container.show .skill-box:nth-child(3) { transition-delay: 0.3s; }
+        .skills-container.show .skill-box:nth-child(4) { transition-delay: 0.4s; }
+        .skills-container.show .skill-box:nth-child(5) { transition-delay: 0.5s; }
+
+        .skill-box h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            color: white;
+            position: relative;
+            padding-left: 2rem;
+            font-weight: 600;
+        }
+
+        .skill-box h3::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 4px;
+            height: 0;
+            background: linear-gradient(to bottom, #d11818, #ff4444);
+            transition: height 0.6s ease;
+        }
+
+        .skills-container.show .skill-box h3::before {
+            height: 100%;
+        }
+
+        .bar {
+            width: 100%;
+            height: 1rem;
+            background: #333;
+            border-radius: 1rem;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .level {
+            height: 100%;
+            background: linear-gradient(90deg, #d11818, #ff4444);
+            border-radius: 1rem;
+            width: 0;
+            transition: width 2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            position: relative;
+            box-shadow: 0 0 10px rgba(209,24,24,0.5);
+        }
+
+        .skills-container.show .level {
+            width: attr(style);
+        }
+
+        .Services .boxers {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 2.5rem;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .Services .box {
+            background: #151515;
+            padding: 2.5rem;
+            border-radius: 1.5rem;
+            border: 1px solid #222;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .Services .box:hover {
+            transform: translateY(-8px);
+            border-color: #d11818;
+            box-shadow: 0 0 20px #d11818;
+        }
+
+        .Services .box .icon {
+            font-size: 4rem;
+            color: #d11818;
+            margin-bottom: 1.5rem;
+            transition: transform 0.3s ease;
+        }
+
+        .Services .box:hover .icon {
+            transform: scale(1.1);
+        }
+
+        .Services .box .topic {
+            font-size: 2.3rem;
+            color: white;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .Services .box p {
+            font-size: 1.5rem;   /* чуть больше текст сервисов */
+            opacity: 0.85;
+            line-height: 1.7;
+        }
+
+        .Contact {
+            text-align: center;
+        }
+
+        .title-left {
+            font-size: 4rem;
+            font-weight: 800;
+            color: white;
+            margin-bottom: 2rem;
+        }
+
+        .Contact .topic {
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .Contact p {
+            font-size: 1.7rem;
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem;
+            color: #666;
+        }
+
+        @media (max-width: 995px) {
+            header {
+                padding: 1rem 4%;
+            }
+            
+            nav {
+                position: absolute;
+                display: none;
+                top: 100%;
+                right: 4%;
+                width: 40%;
+                border-left: 3px solid #d11818;
+                border-bottom: 3px solid #d11818;
+                border-bottom-left-radius: 2rem;
+                padding: 2rem;
+                background-color: #161616;
+            }
+
+            nav.active {
+                display: block;
+            }
+
+            nav a {
+                display: block;
+                font-size: 2rem;
+                margin: 2rem 0;
+            }
+
+            .menu-toggle {
+                display: flex;
+            }
+
+            .home {
+                flex-direction: column;
+                text-align: center;
+                gap: 4rem;
+                padding-top: 12rem;
+            }
+
+            .home-content p {
+                max-width: 100%;
+            }
+
+            .photo-container {
+                width: 45rem;
+                height: 45rem;
+            }
+
+            .About-details {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .photo-container {
+                width: 35rem;
+                height: 35rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <a href="#home" class="logo">Dias Baubekov</a>
+        <nav>
+            <a href="#home" class="active">Home</a>
+            <a href="#Services">Services</a>
+            <a href="#skills">Skills</a>
+            <a href="#About">Education</a>
+            <a href="#Contact">Contact</a>
+        </nav>
+        <div class="menu-toggle" onclick="toggleMenu()">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </header> 
+
+    <section id="home" class="home show">
+        <div class="home-content">
+            <h3>Hi, it's <span>Dias</span></h3>
+            <h3 class="typing-text">I'm a <span></span></h3>
+            <p>Я — молодой предприниматель и владелец франшизы Blumarine, развивающий направление бренда в Казахстане. Моя деятельность направлена на эффективное управление бизнесом в сфере моды и ритейла, стратегическое продвижение бренда и формирование устойчивого имиджа компании на рынке.</p>
+            <div class="social-icons">
+                <a href="https://instagram.com/" target="_blank"><i class="fa-brands fa-instagram"></i></a>
+                <a href="https://github.com/" target="_blank"><i class="fa-brands fa-github"></i></a>
+                <a href="https://t.me/+OCTOgOx1nfc4ZDli" target="_blank"><i class="fa-brands fa-telegram"></i></a>
+            </div>
+            <a href="#About" class="btn">Hire me</a>
+        </div>
+        <div class="photo-container">
+            <img src="photo_1_2025-12-07_20-16-53.jpg" alt=""> 
+        </div>
+    </section>  
+
+    <section id="About" class="About">
+        <div class="content">
+            <div class="title"><span>About Me</span></div>
+            <div class="About-details">
+                <div class="left">
+                    <div class="photo-container">
+                        <img src="photo_2_2025-12-07_20-16-53.jpg" alt="">
+                    </div>
+                </div>
+                <div class="right">
+                    <div class="topic">Designing is My Passion</div>
+                    <p>Я — предприниматель, развивающий премиальный fashion-ритейл в Казахстане и управляющий франшизой Blumarine. Моя профессиональная деятельность направлена на создание устойчивой и современной бизнес‑модели, объединяющей эстетику бренда, качественный сервис и стратегическое управление.</p>
+                    <p>Я занимаюсь развитием сети, контролем операционных процессов, построением маркетинговой коммуникации и формированием клиентского опыта, соответствующего международным стандартам модной индустрии.</p>
+                    <div class="button">
+                        <button>Download CV</button>
+                    </div>
+                </div>
+            </div>
+        </div> 
+    </section>
+
+    <section id="skills" class="skills">
+        <div class="content">
+            <div class="title"><span>My Skills</span></div>
+            <div class="skills-container">
+                <div class="skill-box">
+                    <h3>Brand Management (Blumarine)</h3>
+                    <div class="bar"><div class="level" style="width: 95%"></div></div>
+                </div>
+                <div class="skill-box">
+                    <h3>Entrepreneurship</h3>
+                    <div class="bar"><div class="level" style="width: 90%"></div></div>
+                </div>
+                <div class="skill-box">
+                    <h3>Content Creation (Blogger)</h3>
+                    <div class="bar"><div class="level" style="width: 85%"></div></div>
+                </div>
+                <div class="skill-box">
+                    <h3>Marketing Strategy</h3>
+                    <div class="bar"><div class="level" style="width: 80%"></div></div>
+                </div>
+                <div class="skill-box">
+                    <h3>Web Development</h3>
+                    <div class="bar"><div class="level" style="width: 70%"></div></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="Services" class="Services">
+        <div class="content">
+            <div class="title"><span>My Services</span></div>
+            <div class="boxers">
+                <div class="box">
+                    <div class="icon"><i class="fas fa-user-tie"></i></div>
+                    <div class="topic">Entrepreneur</div>
+                    <p>Я развиваю проекты с нуля, управляю процессами и строю стратегии, которые приводят бизнес к росту. Умею анализировать рынок и быстро адаптироваться к изменениям.</p>
+                </div>
+                <div class="box">
+                    <div class="icon"><i class="fas fa-briefcase"></i></div>
+                    <div class="topic">Businessman</div>
+                    <p>Принимаю взвешенные решения, анализирую рынок и выстраиваю эффективные бизнес‑модели. Работаю с цифрами, рисками и конкурентной средой.</p>
+                </div>
+                <div class="box">
+                    <div class="icon"><i class="fas fa-code"></i></div>
+                    <div class="topic">Web Developer</div>
+                    <p>Создаю современные, адаптивные и удобные сайты. Понимаю, как устроен UX/UI и как сделать сайт полезным для пользователя.</p>
+                </div>
+                <div class="box">
+                    <div class="icon"><i class="fas fa-laptop-code"></i></div>
+                    <div class="topic">Software Developer</div>
+                    <p>Разрабатываю программные решения и оптимизирую процессы с помощью технологий. Пишу чистый и понятный код.</p>
+                </div>
+                <div class="box">
+                    <div class="icon"><i class="fas fa-palette"></i></div>
+                    <div class="topic">Artist</div>
+                    <p>Создаю визуальный стиль и контент, который передаёт атмосферу бренда. Работаю с эстетикой и деталями.</p>
+                </div>
+                <!-- новая карточка Blogger -->
+                <div class="box">
+                    <div class="icon"><i class="fas fa-blog"></i></div>
+                    <div class="topic">Blogger</div>
+                    <p>Веду блоги о бизнесе, стиле и личном опыте. Умею превращать истории и мысли в контент, который вовлекает аудиторию и усиливает личный бренд.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="Contact" class="Contact">
+        <div class="content">
+            <div class="title-left">Contact Me</div>
+            <div class="text">
+                <div class="topic">Хочешь создать проект?</div>
+                <p>Давай сделаем его вместе. Открыт к сотрудничеству, коллабам и интересным идеям.</p>
+                <div class="button">
+                    <a href="https://www.instagram.com/asvnaa.d" target="_blank">
+                        <button>Связаться со мной</button>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="text"><span>Created By Dias Baubekov ©2025</span></div>
+    </footer>
+
+    <script>
+        function toggleMenu() {
+            document.querySelector('nav').classList.toggle('active');
+        }
+
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
+                document.querySelectorAll('nav a').forEach(link => link.classList.remove('active'));
+                this.classList.add('active');
+                document.querySelector('nav').classList.remove('active');
+            });
+        });
+
+        const observer = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add("show");
+                    if (entry.target.querySelector(".skills-container")) {
+                        entry.target.querySelector(".skills-container").classList.add("show");
+                    }
+                }
+            });
+        }, { threshold: 0.2 });
+
+        document.querySelectorAll("section").forEach(section => {
+            observer.observe(section);
+        });
+
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            if (window.scrollY > 100) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+    </script>
+</body>
+</html>
